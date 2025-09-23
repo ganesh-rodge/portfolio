@@ -48,9 +48,19 @@ export default function About() {
 function TimelineItem({ year, title, detail, align }: { year: string; title: string; detail: string; align: 'left' | 'right' }) {
   const { ref, inView } = useInView({ threshold: 0.2 })
   const isLeft = align === 'left'
+
   return (
-    <li ref={ref as any} className={'relative flex ' + (isLeft ? 'md:justify-start' : 'md:justify-end')}>
-      <div className={(inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4') + ' transition-all duration-700 max-w-md bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-sm'}>
+    <li
+      ref={ref as any}
+      className={
+        'relative flex ' +
+        (isLeft ? 'md:justify-start' : 'md:justify-end')
+      }
+    >
+      <div
+        className={`transition-all duration-700 ease-out transform max-w-md bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-sm
+          ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 ' + (isLeft ? '-translate-x-8' : 'translate-x-8')}`}
+      >
         <div className="text-sm text-neutral-500 dark:text-neutral-400">{year}</div>
         <div className="mt-1 font-semibold">{title}</div>
         <p className="mt-2 text-neutral-600 dark:text-neutral-300">{detail}</p>
@@ -59,16 +69,21 @@ function TimelineItem({ year, title, detail, align }: { year: string; title: str
   )
 }
 
-function FunBadge({ label }: { label: string }) {
+function FunBadge({ label, delay = 0 }: { label: string; delay?: number }) {
   const { ref, inView } = useInView({ threshold: 0.1 })
+
   return (
     <div
       ref={ref as any}
-      className={(inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95') + ' transition-all duration-500 rounded-xl border border-neutral-200 dark:border-neutral-800 px-4 py-6 text-center hover:-translate-y-0.5 hover:shadow-md'}
+      style={{ transitionDelay: `${delay}ms` }}
+      className={`transition-all duration-500 ease-out transform rounded-xl border border-neutral-200 dark:border-neutral-800 px-4 py-6 text-center 
+        ${inView ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}
+        hover:-translate-y-0.5 hover:shadow-md`}
     >
       <span className="text-sm font-medium">{label}</span>
     </div>
   )
 }
+
 
 
