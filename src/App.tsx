@@ -1,4 +1,4 @@
-import { useTheme } from './context/ThemeContext'
+// import { useTheme } from './context/ThemeContext'
 import Navbar from './components/Navbar'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
@@ -14,7 +14,7 @@ import { useScrollSpy } from './hooks/useScrollSpy'
 
 
 export default function App() {
-  const { theme, toggleTheme } = useTheme()
+  // const {  toggleTheme } = useTheme()
   const sections = [
     { id: 'hero', label: 'Who am I' },
     { id: 'about', label: 'My Story' },
@@ -30,7 +30,7 @@ export default function App() {
     <div className="min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 transition-colors duration-500">
       <Navbar sections={sections} activeId={activeId} onNavigate={scrollTo} />
       <button
-        onClick={toggleTheme}
+        // onClick={toggleTheme}
         className="fixed bottom-5 right-5 z-50 rounded-full px-4 py-2 text-sm font-medium bg-neutral-200 dark:bg-neutral-800 hover:scale-[1.03] active:scale-[0.98] transition-all"
       >
         {/* {theme === 'dark' ? '☾ Dark' : '☼ Light'} */}

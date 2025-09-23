@@ -1,6 +1,6 @@
 import Reveal from '../../components/Reveal'
 import MotionReveal from '../../components/MotionReveal'
-import { SiC, SiCodeblocks, SiCoder, SiCplusplus, SiInternetcomputer, SiJavascript, SiJouav, SiLanguagetool, SiNodedotjs, SiPython, SiVscodium } from 'react-icons/si'
+import { SiNodedotjs, SiPython,} from 'react-icons/si'
 import { PiChatsBold, PiCompassToolBold } from 'react-icons/pi'
 
 export default function Skills() {
@@ -13,7 +13,8 @@ export default function Skills() {
     {
       title: 'Full‑stack',
       icon: <SiNodedotjs className="text-green-500" />,
-      items: ['React',  'Node.js', 'Express.js','TailwindCSS', , 'HTML', 'CSS','MongoDB', 'JWT', 'CI/CD', 'REST APIs' ],
+      items: ['React',  'Node.js', 'Express.js','TailwindCSS',  'HTML', 'CSS','MongoDB', 'JWT', 'CI/CD', 'REST APIs' ],
+      // items: ['Postman', 'Git', 'GitHub', 'Figma', 'MySQL', 'Cloudinary', 'UNIX', 'JIRA'],
     },
     {
       title: 'Tools',
