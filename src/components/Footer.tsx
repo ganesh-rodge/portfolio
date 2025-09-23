@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaEnvelope } from "react-icons/fa";
+import { SiLeetcode } from "react-icons/si";
 
 export default function Footer() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -60,24 +61,29 @@ export default function Footer() {
           }}
         >
           {[
-            { href: "https://github.com/", label: "GitHub", icon: <FaGithub /> },
-            { href: "https://linkedin.com/", label: "LinkedIn", icon: <FaLinkedin /> },
-            { href: "https://twitter.com/", label: "Twitter", icon: <FaTwitter /> },
-            { href: "https://instagram.com/", label: "Instagram", icon: <FaInstagram /> },
-            { href: "mailto:ganeshrodge25@gmail.com", label: "Email", icon: <FaEnvelope /> },
-          ].map((s) => (
-            <motion.a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.15, y: -3 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-sm"
-            >
-              {s.icon} {s.label}
-            </motion.a>
-          ))}
+  { href: "https://github.com/ganesh-rodge", label: "GitHub", icon: <FaGithub /> },
+  { href: "https://www.linkedin.com/in/ganesh-rodge/", label: "LinkedIn", icon: <FaLinkedin /> },
+  { href: "https://leetcode.com/ganesh-rodge", label: "LeetCode", icon: <SiLeetcode /> },
+  { href: "https://x.com/ganeshro_", label: "Twitter", icon: <FaTwitter /> },
+  { href: "https://www.instagram.com/ganeshro_/", label: "Instagram", icon: <FaInstagram /> },
+  {
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=ganeshrodge25@gmail.com",
+    label: "Email",
+    icon: <FaEnvelope />,
+  },
+].map((s) => (
+  <motion.a
+    key={s.label}
+    href={s.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    whileHover={{ scale: 1.15, y: -3 }}
+    whileTap={{ scale: 0.95 }}
+    className="flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors text-sm"
+  >
+    {s.icon} {s.label}
+  </motion.a>
+))}
         </motion.div>
 
         {/* Bottom copyright */}

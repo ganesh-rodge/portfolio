@@ -2,8 +2,8 @@ import { useInView } from '../../hooks/useInView'
 import Reveal from '../../components/Reveal'
 
 const roles = [
-  { period: '2023 — Present', title: 'Frontend Developer', org: 'Acme Inc.', desc: 'Built and optimized user interfaces.' },
-  { period: '2022 — 2023', title: 'Intern', org: 'Beta Corp', desc: 'Learned best practices and contributed to features.' },
+  { period: 'December 2024 — February 2025', title: 'Software Development Engineer Intern', org: 'Central Railway, Mumbai.', desc: 'Gained exposure to the Software Development Life Cycle (SDLC) and Agile methodologies while contributing to development tasks.' },
+  { period: 'August 2022 — October 2022', title: 'Front-end Intern', org: 'Technobrilliant Learning Solutions', desc: 'Implemented responsive UI components and contributed to feature development following front-end best practices.' },
 ]
 
 export default function Experience() {
@@ -41,9 +41,22 @@ function RoleItem({ period, title, org, desc }: { period: string; title: string;
       <div className="w-2 h-2 rounded-full bg-fuchsia-500 absolute left-[3px] mt-3" />
       <div className="text-sm text-neutral-500 dark:text-neutral-400">{period}</div>
       <div className="font-semibold">{title} · {org}</div>
-      <p className="mt-1 text-neutral-600 dark:text-neutral-300">{desc}</p>
+      <p className="mt-1 text-neutral-600 dark:text-neutral-300">
+        {desc.includes('Gained exposure') ? (
+          <>
+            Gained exposure to the Software Development Life Cycle (SDLC) and Agile methodologies<br className="hidden lg:inline" /> while contributing to development tasks.
+          </>
+        ) : desc.includes('Implemented responsive UI components') ? (
+          <>
+            Implemented responsive UI components and contributed to feature development<br className="hidden lg:inline" /> following front-end best practices.
+          </>
+        ) : (
+          desc
+        )}
+      </p>
     </li>
   )
 }
+
 
 

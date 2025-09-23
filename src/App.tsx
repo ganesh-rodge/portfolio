@@ -7,7 +7,7 @@ import Projects from './components/sections/Projects'
 import Experience from './components/sections/Experience'
 import Certifications from './components/sections/Certifications'
 import Achievements from './components/sections/Achievements'
-import Testimonials from './components/sections/Testimonials'
+// import Testimonials from './components/sections/Testimonials'
 import Contact from './components/sections/Contact'
 import Footer from './components/Footer'
 import { useScrollSpy } from './hooks/useScrollSpy'
@@ -22,7 +22,7 @@ export default function App() {
     { id: 'projects', label: 'What I Built' },
     { id: 'experience', label: 'Where I’ve Been' },
     { id: 'certifications', label: 'Proof of Work' },
-    { id: 'testimonials', label: 'What People Say' },
+    // { id: 'testimonials', label: 'What People Say' },
     { id: 'contact', label: 'Connect' },
   ]
   const { activeId, scrollTo } = useScrollSpy(sections.map(s => s.id))
@@ -43,7 +43,7 @@ export default function App() {
         <Experience />
         <Certifications />
         <Achievements />
-        <Testimonials />
+        {/* <Testimonials /> */}
         <Contact />
         <Footer />
       </main>

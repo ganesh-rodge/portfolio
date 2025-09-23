@@ -12,10 +12,25 @@ type Props = {
   once?: boolean
 }
 
-export default function MotionReveal({ as = 'div', children, variant = 'up', delay = 0, className = '', once = false }: Props) {
+export default function MotionReveal({
+  as = 'div',
+  children,
+  variant = 'up',
+  delay = 0,
+  className = '',
+  once = false
+}: Props) {
   const ref = useRef<HTMLElement | null>(null)
-  const inView = useInView(ref, { amount: 0.25, once })
-  const Comp: any = typeof as === 'string' ? (motion as any)[as] ?? motion.div : (motion as any)(as)
+
+  // 👇 margin ensures reverse animations trigger even for tall/full sections
+  const inView = useInView(ref, {
+    amount: 0.25,
+    once,
+    margin: '0px 0px -20% 0px'
+  })
+
+  const Comp: any =
+    typeof as === 'string' ? (motion as any)[as] ?? motion.div : (motion as any)(as)
 
   const hidden = getHidden(variant)
   const visible = getVisible(variant)
@@ -25,7 +40,11 @@ export default function MotionReveal({ as = 'div', children, variant = 'up', del
       ref={ref}
       initial={hidden}
       animate={inView ? visible : hidden}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: (delay || 0) / 1000 }}
+      transition={{
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+        delay: (delay || 0) / 1000
+      }}
       className={className}
     >
       {children}
@@ -62,5 +81,3 @@ function getVisible(variant: Variant) {
       return { opacity: 1, y: 0 }
   }
 }
-
-

@@ -2,9 +2,9 @@ import { useInView } from '../../hooks/useInView'
 import Reveal from '../../components/Reveal'
 
 const badges = [
-  { title: 'Top 3% on LeetCode Monthly', sub: '2024' },
-  { title: 'Hackathon Winner', sub: 'JSConf 2023' },
-  { title: 'Speaker', sub: 'React Meetup' },
+  { title: '111 LeetCode questions solved', sub: '' },
+  { title: '37+ Github Repositories', sub: '' },
+  { title: 'Participated in Hackathons', sub: '' },
 ]
 
 export default function Achievements() {

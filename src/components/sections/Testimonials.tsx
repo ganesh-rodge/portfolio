@@ -5,9 +5,9 @@ import { motion, useAnimationControls, useReducedMotion } from 'framer-motion'
 import { PiPauseFill, PiPlayFill } from 'react-icons/pi'
 
 const testimonials = [
-  { quote: 'A joy to work with, delivers on time.', author: 'Jane D.' },
-  { quote: 'Outstanding attention to detail and UX.', author: 'John S.' },
-  { quote: 'Transformed our front-end quality.', author: 'Alex R.' },
+  { quote: 'Delivered a product that exceeded expectations.', author: 'Amit K.', designation: 'Owner, Unique Fitness' },
+  { quote: 'A joy to work with, delivers on time.', author: 'Poonam R.', designation: 'DevOps Engineer, Accenture' },
+  { quote: 'Outstanding attention to detail and UX.', author: 'Tushar B.', designation: 'Software Developer, ITC Infotech' },
 ]
 
 export default function Testimonials() {
@@ -31,7 +31,7 @@ export default function Testimonials() {
   )
 }
 
-function CardsMarquee({ paused, items }: { paused: boolean; items: { quote: string; author: string }[] }) {
+function CardsMarquee({ paused, items }: { paused: boolean; items: { quote: string; author: string; designation: string }[] }) {
   const wrapperRef = useRef<HTMLDivElement | null>(null)
   const prefersReduced = useReducedMotion()
   const controls = useAnimationControls()
@@ -60,6 +60,7 @@ function CardsMarquee({ paused, items }: { paused: boolean; items: { quote: stri
             className="shrink-0 w-72 md:w-80 rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-5 shadow-sm hover:shadow-md"
           >
             <div className="text-sm text-neutral-500">{t.author}</div>
+            <div className="text-xs text-neutral-400">{t.designation}</div>
             <div className="mt-2 text-lg">“{t.quote}”</div>
           </article>
         ))}
@@ -69,5 +70,3 @@ function CardsMarquee({ paused, items }: { paused: boolean; items: { quote: stri
     </div>
   )
 }
-
-

@@ -2,11 +2,15 @@ import { useInView } from '../../hooks/useInView'
 import Reveal from '../../components/Reveal'
 
 const milestones = [
-  { year: '2021', title: 'Started Coding', detail: 'Began with JavaScript and web basics.' },
-  { year: '2022', title: 'First Internship', detail: 'Front-end intern building React components.' },
-  { year: '2023', title: 'Shipped Projects', detail: 'Launched multiple apps with modern stacks.' },
-  { year: '2024', title: 'Lead Developer', detail: 'Led a small team on a SaaS product.' },
+  { year: '2020', title: 'Completed 10th Grade', detail: 'Finished 10th in March 2020 with 95.40% marks.' },
+  { year: '2020', title: 'Started Coding', detail: 'Began learning basic programming languages in June 2020.' },
+  { year: '2020', title: 'Admission in GPP', detail: 'Joined Government Polytechnic Pune in December 2020.' },
+  { year: '2022', title: 'First Internship', detail: 'Front-end intern at Technobrilliant Learning Solutions, Pune in August 2022.' },
+  { year: '2023', title: 'Completed Diploma', detail: 'Finished Diploma in Computer Engineering in June 2023 with 81.73%.' },
+  { year: '2023', title: 'Admission in SPPU', detail: 'Joined Savitribai Phule Pune University in September 2023. Current CGPA: 9.14.' },
+  { year: '2025', title: 'Second Internship', detail: 'Software Developement Intern at Central Railway, Mumbai in December 2025.' },
 ]
+
 
 export default function About() {
   return (
@@ -25,7 +29,12 @@ export default function About() {
         </div>
 
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {['Coffee lover', 'Cat person', 'Night coder', 'Gamer'].map((f, i) => (
+          {[
+  'Workout in Gym',
+  'Watch movies',
+  'Watch cricket',
+  'Play cricket',
+].map((f, i) => (
             <Reveal key={f} variant="zoom" delay={i * 80}>
               <FunBadge label={f} />
             </Reveal>

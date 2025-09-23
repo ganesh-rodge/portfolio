@@ -22,7 +22,7 @@ export default function Contact() {
     <section id="contact" className="py-24 md:py-32">
       <div className="container max-w-3xl mx-auto px-6">
         <Reveal as="h2" variant="slide-up" className="text-3xl md:text-4xl font-bold">
-          Connect With Me / Next Chapter
+          Connect With Me 
         </Reveal>
 
         <form
@@ -74,7 +74,7 @@ export default function Contact() {
             <motion.button
               whileTap={{ scale: 0.98 }}
               disabled={sending}
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-60"
+              className="px-6 py-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-60 cursor-pointer hover:from-fuchsia-400 to-violet-400"
             >
               {sending ? "Sending…" : "Send Message"}
             </motion.button>
@@ -108,7 +108,7 @@ function FloatingInput({
         whileFocus={{ scale: 1.01 }}
         placeholder=" "
         className={
-          "peer w-full px-4 pt-5 pb-2 rounded-xl border bg-white dark:bg-neutral-900 focus:border-transparent focus:ring-2 focus:ring-fuchsia-500/70 dark:focus:ring-violet-500/70 transition-all " +
+          "peer w-full px-4 pt-7 pb-2 rounded-xl border bg-white dark:bg-neutral-900 focus:border-transparent focus:ring-2 focus:ring-fuchsia-500/70 dark:focus:ring-violet-500/70 transition-all " +
           (error ? "border-red-500 ring-red-300" : "border-neutral-300 dark:border-neutral-700")
         }
       />
@@ -141,7 +141,7 @@ function FloatingTextarea({
         whileFocus={{ scale: 1.01 }}
         placeholder=" "
         className={
-          "peer w-full px-4 pt-5 pb-2 rounded-xl border bg-white dark:bg-neutral-900 focus:border-transparent focus:ring-2 focus:ring-fuchsia-500/70 dark:focus:ring-violet-500/70 transition-all " +
+          "peer w-full px-4 pt-7 pb-2 rounded-xl border bg-white dark:bg-neutral-900 focus:border-transparent focus:ring-2 focus:ring-fuchsia-500/70 dark:focus:ring-violet-500/70 transition-all " +
           (error ? "border-red-500 ring-red-300" : "border-neutral-300 dark:border-neutral-700")
         }
       />

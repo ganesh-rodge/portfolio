@@ -2,8 +2,12 @@ import { useInView } from '../../hooks/useInView'
 import Reveal from '../../components/Reveal'
 
 const certs = [
-  { title: 'AWS Certified Cloud Practitioner', issuer: 'AWS', date: '2024' },
-  { title: 'Google UX Design', issuer: 'Google', date: '2023' },
+  { title: ' TypeScript Programming Course for Beginners', issuer: 'ScholarHat', date: ' June 2025' },
+  { title: 'Operating System Fundamentals', issuer: 'NPTEL', date: 'October 2024' },
+  { title: ' JavaScript for Beginners', issuer: 'Udemy', date: ' October 2024' },
+  { title: '  Figma Training', issuer: 'Infosys Springboard', date: ' June 2024' },
+  { title: '  Complete Git and GitHub Masterclass', issuer: 'Infosys Springboard', date: ' October 2023' },
+  { title: ' Data Structures and Algorithms', issuer: 'Infosys Springboard', date: ' September 2023' },
 ]
 
 export default function Certifications() {
