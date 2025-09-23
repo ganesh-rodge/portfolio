@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
-import { useInView } from '../../hooks/useInView'
+// import { useInView } from '../../hooks/useInView'
 import Reveal from '../../components/Reveal'
 import { motion, useAnimationControls, useReducedMotion } from 'framer-motion'
 import { PiPauseFill, PiPlayFill } from 'react-icons/pi'
