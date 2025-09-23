@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { JSX, useEffect, useMemo, useRef, useState } from 'react'
 
 type Variant = 'fade' | 'slide-up' | 'slide-left' | 'slide-right' | 'zoom'
 
