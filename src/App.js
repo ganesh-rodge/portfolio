@@ -25,7 +25,5 @@ export default function App() {
         { id: 'contact', label: 'Connect' },
     ];
     const { activeId, scrollTo } = useScrollSpy(sections.map(s => s.id));
-    return (_jsxs("div", { className: "min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 transition-colors duration-500", children: [_jsx(Navbar, { sections: sections, activeId: activeId, onNavigate: scrollTo }), _jsx("button", { 
-                // onClick={toggleTheme}
-                className: "fixed bottom-5 right-5 z-50 rounded-full px-4 py-2 text-sm font-medium bg-neutral-200 dark:bg-neutral-800 hover:scale-[1.03] active:scale-[0.98] transition-all" }), _jsxs("main", { children: [_jsx(Hero, {}), _jsx(About, {}), _jsx(Skills, {}), _jsx(Projects, {}), _jsx(Experience, {}), _jsx(Certifications, {}), _jsx(Achievements, {}), _jsx(Contact, {}), _jsx(Footer, {})] })] }));
+    return (_jsxs("div", { className: "min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 transition-colors duration-500", children: [_jsx(Navbar, { sections: sections, activeId: activeId, onNavigate: scrollTo }), _jsxs("main", { children: [_jsx(Hero, {}), _jsx(About, {}), _jsx(Skills, {}), _jsx(Projects, {}), _jsx(Experience, {}), _jsx(Certifications, {}), _jsx(Achievements, {}), _jsx(Contact, {}), _jsx(Footer, {})] })] }));
 }
