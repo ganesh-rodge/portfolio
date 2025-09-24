@@ -2,43 +2,110 @@ import { useState } from "react";
 import { useInView } from "../../hooks/useInView";
 import Reveal from "../../components/Reveal";
 import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
   const { ref, inView } = useInView({ threshold: 0.2 });
   const [sending, setSending] = useState(false);
-  const [values, setValues] = useState({ name: "", email: "", message: "" });
-  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
+  const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
+  const [errors, setErrors] = useState<{ name?: string; email?: string; phone?: string; message?: string }>({});
+
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const validate = () => {
     const next: typeof errors = {};
     if (!values.name.trim()) next.name = "Name is required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) next.email = "Valid email required";
+    if (!values.phone.trim()) next.phone = "Phone number is required";
+    else if (!/^\+?\d{10,15}$/.test(values.phone)) next.phone = "Enter a valid phone number";
     if (values.message.trim().length < 10) next.message = "Message should be at least 10 characters";
     setErrors(next);
     return Object.keys(next).length === 0;
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    setSending(true);
+    try {
+      const res = await fetch(`${API_URL}/connect`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Thanks for reaching out! I'll get back to you soon.", {
+          autoClose: 5000,
+          style: {
+            borderRadius: "0.5rem",
+            border: "1px solid #8b5cf6",
+            padding: "12px 16px",
+            fontSize: "14px",
+            color: "#4b5563",
+            background: "#fdf7ff",
+          },
+        });
+        setValues({ name: "", email: "", phone: "", message: "" });
+        setErrors({});
+      } else {
+        if (data.errors) {
+          const backendErrors = data.errors.reduce((acc: any, err: any) => {
+            acc[err.param] = err.msg;
+            return acc;
+          }, {});
+          setErrors(backendErrors);
+        } else {
+          toast.error(data.message || "Oops! Something went wrong.", {
+            autoClose: 5000,
+            style: {
+              borderRadius: "0.5rem",
+              border: "1px solid #ef4444",
+              padding: "12px 16px",
+              fontSize: "14px",
+              color: "#b91c1c",
+              background: "#fef2f2",
+            },
+          });
+        }
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Oops! Something went wrong.", {
+        autoClose: 5000,
+        style: {
+          borderRadius: "0.5rem",
+          border: "1px solid #ef4444",
+          padding: "12px 16px",
+          fontSize: "14px",
+          color: "#b91c1c",
+          background: "#fef2f2",
+        },
+      });
+    } finally {
+      setSending(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-24 md:py-32">
+      <ToastContainer position="top-right" hideProgressBar={false} />
       <div className="container max-w-3xl mx-auto px-6">
         <Reveal as="h2" variant="slide-up" className="text-3xl md:text-4xl font-bold">
-          Connect With Me 
+          Connect With Me
         </Reveal>
 
         <form
           ref={ref as any}
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (!validate()) return;
-            setSending(true);
-            setTimeout(() => setSending(false), 1000);
-          }}
+          onSubmit={handleSubmit}
           className={
             (inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3") +
             " transition-all duration-700 mt-10 space-y-6"
           }
         >
-          {/* Name Field */}
           <Reveal variant="slide-right">
             <FloatingInput
               label="Name"
@@ -48,7 +115,6 @@ export default function Contact() {
             />
           </Reveal>
 
-          {/* Email Field */}
           <Reveal variant="slide-left" delay={60}>
             <FloatingInput
               label="Email"
@@ -59,8 +125,17 @@ export default function Contact() {
             />
           </Reveal>
 
-          {/* Message Field */}
-          <Reveal variant="slide-up" delay={120}>
+          <Reveal variant="slide-right" delay={120}>
+            <FloatingInput
+              label="Phone"
+              type="tel"
+              value={values.phone}
+              error={errors.phone}
+              onChange={(e) => setValues((v) => ({ ...v, phone: e.target.value }))}
+            />
+          </Reveal>
+
+          <Reveal variant="slide-up" delay={180}>
             <FloatingTextarea
               label="Message"
               value={values.message}
@@ -69,12 +144,11 @@ export default function Contact() {
             />
           </Reveal>
 
-          {/* Button */}
-          <Reveal variant="zoom" delay={180}>
+          <Reveal variant="zoom" delay={240}>
             <motion.button
               whileTap={{ scale: 0.98 }}
               disabled={sending}
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-60 cursor-pointer hover:from-fuchsia-400 to-violet-400"
+              className="px-6 py-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-60 cursor-pointer hover:from-fuchsia-400"
             >
               {sending ? "Sending…" : "Send Message"}
             </motion.button>
@@ -108,8 +182,10 @@ function FloatingInput({
         whileFocus={{ scale: 1.01 }}
         placeholder=" "
         className={
-          "peer w-full px-4 pt-7 pb-2 rounded-xl border bg-white dark:bg-neutral-900 focus:border-transparent focus:ring-2 focus:ring-fuchsia-500/70 dark:focus:ring-violet-500/70 transition-all " +
-          (error ? "border-red-500 ring-red-300" : "border-neutral-300 dark:border-neutral-700")
+          "peer w-full px-4 pt-7 pb-2 rounded-xl border bg-white dark:bg-neutral-900 transition-all appearance-none -webkit-tap-highlight-color-transparent " +
+          (error
+            ? "border-red-500 ring-red-300"
+            : "border-neutral-300 dark:border-neutral-700 focus:outline-none focus:border-0 focus:ring-0 focus:shadow-[0_0_0_2px_linear-gradient(90deg,#f472b6,#8b5cf6)]")
         }
       />
       <label className="absolute left-4 top-2.5 text-neutral-500 dark:text-neutral-400 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-neutral-400 peer-placeholder-shown:text-base peer-focus:top-2.5 peer-focus:text-sm peer-focus:text-fuchsia-600 dark:peer-focus:text-violet-400">
@@ -141,8 +217,10 @@ function FloatingTextarea({
         whileFocus={{ scale: 1.01 }}
         placeholder=" "
         className={
-          "peer w-full px-4 pt-7 pb-2 rounded-xl border bg-white dark:bg-neutral-900 focus:border-transparent focus:ring-2 focus:ring-fuchsia-500/70 dark:focus:ring-violet-500/70 transition-all " +
-          (error ? "border-red-500 ring-red-300" : "border-neutral-300 dark:border-neutral-700")
+          "peer w-full px-4 pt-7 pb-2 rounded-xl border bg-white dark:bg-neutral-900 transition-all appearance-none -webkit-tap-highlight-color-transparent " +
+          (error
+            ? "border-red-500 ring-red-300"
+            : "border-neutral-300 dark:border-neutral-700 focus:outline-none focus:border-0 focus:ring-0 focus:shadow-[0_0_0_2px_linear-gradient(90deg,#f472b6,#8b5cf6)]")
         }
       />
       <label className="absolute left-4 top-2.5 text-neutral-500 dark:text-neutral-400 text-sm transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-neutral-400 peer-placeholder-shown:text-base peer-focus:top-2.5 peer-focus:text-sm peer-focus:text-fuchsia-600 dark:peer-focus:text-violet-400">
