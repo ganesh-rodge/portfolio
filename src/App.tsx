@@ -1,4 +1,3 @@
-// import { useTheme } from './context/ThemeContext'
 import Navbar from './components/Navbar'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
@@ -10,11 +9,11 @@ import Achievements from './components/sections/Achievements'
 // import Testimonials from './components/sections/Testimonials'
 import Contact from './components/sections/Contact'
 import Footer from './components/Footer'
+import ThemeToggle from './components/ThemeToggle'
 import { useScrollSpy } from './hooks/useScrollSpy'
 
 
 export default function App() {
-  // const {  toggleTheme } = useTheme()
   const sections = [
     { id: 'hero', label: 'Who am I' },
     { id: 'about', label: 'My Story' },
@@ -42,6 +41,8 @@ export default function App() {
         <Contact />
         <Footer />
       </main>
+
+      <ThemeToggle />
     </div>
   );
 }
