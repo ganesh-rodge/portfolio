@@ -1,5 +1,5 @@
-import { useInView } from '../../hooks/useInView'
 import Reveal from '../../components/Reveal'
+import MotionReveal from '../../components/MotionReveal'
 
 const milestones = [
   { year: '2020', title: 'Completed 10th Grade', detail: 'Finished 10th in March 2020 with 95.40% marks.' },
@@ -35,9 +35,7 @@ export default function About() {
   'Watch cricket',
   'Play cricket',
 ].map((f, i) => (
-            <Reveal key={f} variant="zoom" delay={i * 80}>
-              <FunBadge label={f} />
-            </Reveal>
+            <FunBadge key={f} label={f} delay={i * 80} />
           ))}
         </div>
       </div>
@@ -46,43 +44,31 @@ export default function About() {
 }
 
 function TimelineItem({ year, title, detail, align }: { year: string; title: string; detail: string; align: 'left' | 'right' }) {
-  const { ref, inView } = useInView({ threshold: 0.2 })
   const isLeft = align === 'left'
 
   return (
-    <li
-      ref={ref as any}
-      className={'relative flex ' + (isLeft ? 'md:justify-start' : 'md:justify-end')}
-    >
-      <div
-        className={`transition-all duration-700 ease-out transform max-w-md bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-sm
-          ${inView 
-            ? 'opacity-100 translate-y-0 translate-x-0' 
-            : 'opacity-0 translate-y-4 ' + (isLeft ? '-translate-x-8' : 'translate-x-8')}`}
+    <li className={'relative flex ' + (isLeft ? 'md:justify-start' : 'md:justify-end')}>
+      <MotionReveal
+        variant={isLeft ? 'left' : 'right'}
+        className="max-w-md bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-sm"
       >
         <div className="text-sm text-neutral-500 dark:text-neutral-400">{year}</div>
         <div className="mt-1 font-semibold">{title}</div>
         <p className="mt-2 text-neutral-600 dark:text-neutral-300">{detail}</p>
-      </div>
+      </MotionReveal>
     </li>
   )
 }
 
 function FunBadge({ label, delay = 0 }: { label: string; delay?: number }) {
-  const { ref, inView } = useInView({ threshold: 0.1 })
-
   return (
-    <div
-      ref={ref as any}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={`transition-all duration-500 ease-out transform rounded-xl border border-neutral-200 dark:border-neutral-800 px-4 py-6 text-center 
-        ${inView 
-          ? 'opacity-100 scale-100 translate-y-0' 
-          : 'opacity-0 scale-95 translate-y-4'}
-        hover:-translate-y-0.5 hover:shadow-md`}
+    <MotionReveal
+      variant="zoom"
+      delay={delay}
+      className="rounded-xl border border-neutral-200 dark:border-neutral-800 px-4 py-6 text-center hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
     >
       <span className="text-sm font-medium">{label}</span>
-    </div>
+    </MotionReveal>
   )
 }
 

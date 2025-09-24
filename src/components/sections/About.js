@@ -1,6 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useInView } from '../../hooks/useInView';
 import Reveal from '../../components/Reveal';
+import MotionReveal from '../../components/MotionReveal';
 const milestones = [
     { year: '2020', title: 'Completed 10th Grade', detail: 'Finished 10th in March 2020 with 95.40% marks.' },
     { year: '2020', title: 'Started Coding', detail: 'Began learning basic programming languages in June 2020.' },
@@ -16,21 +16,12 @@ export default function About() {
                         'Watch movies',
                         'Watch cricket',
                         'Play cricket',
-                    ].map((f, i) => (_jsx(Reveal, { variant: "zoom", delay: i * 80, children: _jsx(FunBadge, { label: f }) }, f))) })] }) }));
+                    ].map((f, i) => (_jsx(FunBadge, { label: f, delay: i * 80 }, f))) })] }) }));
 }
 function TimelineItem({ year, title, detail, align }) {
-    const { ref, inView } = useInView({ threshold: 0.2 });
     const isLeft = align === 'left';
-    return (_jsx("li", { ref: ref, className: 'relative flex ' + (isLeft ? 'md:justify-start' : 'md:justify-end'), children: _jsxs("div", { className: `transition-all duration-700 ease-out transform max-w-md bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-sm
-          ${inView
-                ? 'opacity-100 translate-y-0 translate-x-0'
-                : 'opacity-0 translate-y-4 ' + (isLeft ? '-translate-x-8' : 'translate-x-8')}`, children: [_jsx("div", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: year }), _jsx("div", { className: "mt-1 font-semibold", children: title }), _jsx("p", { className: "mt-2 text-neutral-600 dark:text-neutral-300", children: detail })] }) }));
+    return (_jsx("li", { className: 'relative flex ' + (isLeft ? 'md:justify-start' : 'md:justify-end'), children: _jsxs(MotionReveal, { variant: isLeft ? 'left' : 'right', className: "max-w-md bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-2xl p-5 shadow-sm", children: [_jsx("div", { className: "text-sm text-neutral-500 dark:text-neutral-400", children: year }), _jsx("div", { className: "mt-1 font-semibold", children: title }), _jsx("p", { className: "mt-2 text-neutral-600 dark:text-neutral-300", children: detail })] }) }));
 }
 function FunBadge({ label, delay = 0 }) {
-    const { ref, inView } = useInView({ threshold: 0.1 });
-    return (_jsx("div", { ref: ref, style: { transitionDelay: `${delay}ms` }, className: `transition-all duration-500 ease-out transform rounded-xl border border-neutral-200 dark:border-neutral-800 px-4 py-6 text-center 
-        ${inView
-            ? 'opacity-100 scale-100 translate-y-0'
-            : 'opacity-0 scale-95 translate-y-4'}
-        hover:-translate-y-0.5 hover:shadow-md`, children: _jsx("span", { className: "text-sm font-medium", children: label }) }));
+    return (_jsx(MotionReveal, { variant: "zoom", delay: delay, className: "rounded-xl border border-neutral-200 dark:border-neutral-800 px-4 py-6 text-center hover:-translate-y-0.5 hover:shadow-md transition-all duration-300", children: _jsx("span", { className: "text-sm font-medium", children: label }) }));
 }

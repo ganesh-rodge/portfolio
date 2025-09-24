@@ -42,10 +42,11 @@ export default function MotionReveal({
       animate={inView ? visible : hidden}
       transition={{
         duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1], // Smooth cubic-bezier easing
         delay: (delay || 0) / 1000
       }}
       className={className}
+      style={{ willChange: 'transform, opacity' }} // Performance optimization
     >
       {children}
     </Comp>

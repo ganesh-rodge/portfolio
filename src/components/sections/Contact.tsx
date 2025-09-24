@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { useInView } from "../../hooks/useInView";
 import Reveal from "../../components/Reveal";
+import MotionReveal from "../../components/MotionReveal";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Contact() {
-  const { ref, inView } = useInView({ threshold: 0.2 });
   const [sending, setSending] = useState(false);
   const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<{ name?: string; email?: string; phone?: string; message?: string }>({});
@@ -98,62 +97,62 @@ export default function Contact() {
           Connect With Me
         </Reveal>
 
-        <form
-          ref={ref as any}
-          onSubmit={handleSubmit}
-          className={
-            (inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3") +
-            " transition-all duration-700 mt-10 space-y-6"
-          }
+        <MotionReveal
+          variant="up"
+          className="mt-10 space-y-6"
         >
-          <Reveal variant="slide-right">
-            <FloatingInput
-              label="Name"
-              value={values.name}
-              error={errors.name}
-              onChange={(e) => setValues((v) => ({ ...v, name: e.target.value }))}
-            />
-          </Reveal>
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-6">
+              <MotionReveal variant="right">
+                <FloatingInput
+                  label="Name"
+                  value={values.name}
+                  error={errors.name}
+                  onChange={(e) => setValues((v) => ({ ...v, name: e.target.value }))}
+                />
+              </MotionReveal>
 
-          <Reveal variant="slide-left" delay={60}>
-            <FloatingInput
-              label="Email"
-              type="email"
-              value={values.email}
-              error={errors.email}
-              onChange={(e) => setValues((v) => ({ ...v, email: e.target.value }))}
-            />
-          </Reveal>
+              <MotionReveal variant="left" delay={60}>
+                <FloatingInput
+                  label="Email"
+                  type="email"
+                  value={values.email}
+                  error={errors.email}
+                  onChange={(e) => setValues((v) => ({ ...v, email: e.target.value }))}
+                />
+              </MotionReveal>
 
-          <Reveal variant="slide-right" delay={120}>
-            <FloatingInput
-              label="Phone"
-              type="tel"
-              value={values.phone}
-              error={errors.phone}
-              onChange={(e) => setValues((v) => ({ ...v, phone: e.target.value }))}
-            />
-          </Reveal>
+              <MotionReveal variant="right" delay={120}>
+                <FloatingInput
+                  label="Phone"
+                  type="tel"
+                  value={values.phone}
+                  error={errors.phone}
+                  onChange={(e) => setValues((v) => ({ ...v, phone: e.target.value }))}
+                />
+              </MotionReveal>
 
-          <Reveal variant="slide-up" delay={180}>
-            <FloatingTextarea
-              label="Message"
-              value={values.message}
-              error={errors.message}
-              onChange={(e) => setValues((v) => ({ ...v, message: e.target.value }))}
-            />
-          </Reveal>
+              <MotionReveal variant="up" delay={180}>
+                <FloatingTextarea
+                  label="Message"
+                  value={values.message}
+                  error={errors.message}
+                  onChange={(e) => setValues((v) => ({ ...v, message: e.target.value }))}
+                />
+              </MotionReveal>
 
-          <Reveal variant="zoom" delay={240}>
-            <motion.button
-              whileTap={{ scale: 0.98 }}
-              disabled={sending}
-              className="px-6 py-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-60 cursor-pointer hover:from-fuchsia-400"
-            >
-              {sending ? "Sending…" : "Send Message"}
-            </motion.button>
-          </Reveal>
-        </form>
+              <MotionReveal variant="zoom" delay={240}>
+                <motion.button
+                  whileTap={{ scale: 0.98 }}
+                  disabled={sending}
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-60 cursor-pointer hover:from-fuchsia-400"
+                >
+                  {sending ? "Sending…" : "Send Message"}
+                </motion.button>
+              </MotionReveal>
+            </div>
+          </form>
+        </MotionReveal>
       </div>
     </section>
   );

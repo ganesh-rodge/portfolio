@@ -1,5 +1,5 @@
-import { useInView } from '../../hooks/useInView'
 import Reveal from '../../components/Reveal'
+import MotionReveal from '../../components/MotionReveal'
 
 const badges = [
   { title: '111 LeetCode questions solved', sub: '' },
@@ -14,9 +14,9 @@ export default function Achievements() {
         <Reveal as="h2" variant="slide-up" className="text-3xl md:text-4xl font-bold">Achievements</Reveal>
         <div className="mt-10 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {badges.map((b, i) => (
-            <Reveal key={b.title} variant="zoom" delay={i * 90}>
+            <MotionReveal key={b.title} variant="zoom" delay={i * 90}>
               <Badge {...b} />
-            </Reveal>
+            </MotionReveal>
           ))}
         </div>
       </div>
@@ -25,12 +25,8 @@ export default function Achievements() {
 }
 
 function Badge({ title, sub }: { title: string; sub: string }) {
-  const { ref, inView } = useInView({ threshold: 0.2 })
   return (
-    <div
-      ref={ref as any}
-      className={(inView ? 'opacity-100 scale-100' : 'opacity-0 scale-95') + ' transition-all duration-700 rounded-2xl border border-neutral-200 dark:border-neutral-800 p-5 bg-white dark:bg-neutral-900 hover:shadow-md text-center'}
-    >
+    <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 p-5 bg-white dark:bg-neutral-900 hover:shadow-md text-center transition-all duration-300 hover:scale-105">
       <div className="text-2xl">🏅</div>
       <div className="mt-2 font-semibold">{title}</div>
       <div className="text-sm text-neutral-500">{sub}</div>

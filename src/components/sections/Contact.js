@@ -9,13 +9,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from "react";
-import { useInView } from "../../hooks/useInView";
 import Reveal from "../../components/Reveal";
+import MotionReveal from "../../components/MotionReveal";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Contact() {
-    const { ref, inView } = useInView({ threshold: 0.2 });
     const [sending, setSending] = useState(false);
     const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
     const [errors, setErrors] = useState({});
@@ -103,8 +102,7 @@ export default function Contact() {
             setSending(false);
         }
     });
-    return (_jsxs("section", { id: "contact", className: "py-24 md:py-32", children: [_jsx(ToastContainer, { position: "top-right", hideProgressBar: false }), _jsxs("div", { className: "container max-w-3xl mx-auto px-6", children: [_jsx(Reveal, { as: "h2", variant: "slide-up", className: "text-3xl md:text-4xl font-bold", children: "Connect With Me" }), _jsxs("form", { ref: ref, onSubmit: handleSubmit, className: (inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3") +
-                            " transition-all duration-700 mt-10 space-y-6", children: [_jsx(Reveal, { variant: "slide-right", children: _jsx(FloatingInput, { label: "Name", value: values.name, error: errors.name, onChange: (e) => setValues((v) => (Object.assign(Object.assign({}, v), { name: e.target.value }))) }) }), _jsx(Reveal, { variant: "slide-left", delay: 60, children: _jsx(FloatingInput, { label: "Email", type: "email", value: values.email, error: errors.email, onChange: (e) => setValues((v) => (Object.assign(Object.assign({}, v), { email: e.target.value }))) }) }), _jsx(Reveal, { variant: "slide-right", delay: 120, children: _jsx(FloatingInput, { label: "Phone", type: "tel", value: values.phone, error: errors.phone, onChange: (e) => setValues((v) => (Object.assign(Object.assign({}, v), { phone: e.target.value }))) }) }), _jsx(Reveal, { variant: "slide-up", delay: 180, children: _jsx(FloatingTextarea, { label: "Message", value: values.message, error: errors.message, onChange: (e) => setValues((v) => (Object.assign(Object.assign({}, v), { message: e.target.value }))) }) }), _jsx(Reveal, { variant: "zoom", delay: 240, children: _jsx(motion.button, { whileTap: { scale: 0.98 }, disabled: sending, className: "px-6 py-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-60 cursor-pointer hover:from-fuchsia-400", children: sending ? "Sending…" : "Send Message" }) })] })] })] }));
+    return (_jsxs("section", { id: "contact", className: "py-24 md:py-32", children: [_jsx(ToastContainer, { position: "top-right", hideProgressBar: false }), _jsxs("div", { className: "container max-w-3xl mx-auto px-6", children: [_jsx(Reveal, { as: "h2", variant: "slide-up", className: "text-3xl md:text-4xl font-bold", children: "Connect With Me" }), _jsx(MotionReveal, { variant: "up", className: "mt-10 space-y-6", children: _jsx("form", { onSubmit: handleSubmit, children: _jsxs("div", { className: "space-y-6", children: [_jsx(MotionReveal, { variant: "right", children: _jsx(FloatingInput, { label: "Name", value: values.name, error: errors.name, onChange: (e) => setValues((v) => (Object.assign(Object.assign({}, v), { name: e.target.value }))) }) }), _jsx(MotionReveal, { variant: "left", delay: 60, children: _jsx(FloatingInput, { label: "Email", type: "email", value: values.email, error: errors.email, onChange: (e) => setValues((v) => (Object.assign(Object.assign({}, v), { email: e.target.value }))) }) }), _jsx(MotionReveal, { variant: "right", delay: 120, children: _jsx(FloatingInput, { label: "Phone", type: "tel", value: values.phone, error: errors.phone, onChange: (e) => setValues((v) => (Object.assign(Object.assign({}, v), { phone: e.target.value }))) }) }), _jsx(MotionReveal, { variant: "up", delay: 180, children: _jsx(FloatingTextarea, { label: "Message", value: values.message, error: errors.message, onChange: (e) => setValues((v) => (Object.assign(Object.assign({}, v), { message: e.target.value }))) }) }), _jsx(MotionReveal, { variant: "zoom", delay: 240, children: _jsx(motion.button, { whileTap: { scale: 0.98 }, disabled: sending, className: "px-6 py-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-60 cursor-pointer hover:from-fuchsia-400", children: sending ? "Sending…" : "Send Message" }) })] }) }) })] })] }));
 }
 /* --- Floating Input Component --- */
 function FloatingInput({ label, type = "text", value, onChange, error, }) {
