@@ -6,39 +6,116 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 dark:from-purple-600 dark:to-blue-500 hover:from-blue-600 hover:to-purple-700 dark:hover:from-purple-700 dark:hover:to-blue-600 transition-all duration-300 shadow-2xl hover:shadow-purple-500/25 dark:hover:shadow-blue-500/25 border-2 border-white/20 dark:border-white/10 backdrop-blur-sm group active:scale-95"
+      className="fixed bottom-6 right-6 z-50 group focus:outline-none"
       aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
-      <div className="relative w-6 h-6">
-        {/* Sun Icon */}
-        <svg
-          className={`absolute inset-0 w-6 h-6 text-yellow-300 transition-all duration-500 ${
+      {/* Toggle Switch Container */}
+      <div className={`relative w-16 h-8 rounded-full transition-all duration-500 ease-in-out transform hover:scale-105 ${
+        theme === 'dark' 
+          ? 'bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-400 shadow-lg shadow-blue-500/30' 
+          : 'bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 shadow-lg shadow-orange-500/30'
+      }`}>
+        
+        {/* Sliding Circle */}
+        <div className={`absolute top-1 w-6 h-6 bg-white rounded-full shadow-xl transition-all duration-500 ease-in-out transform ${
+          theme === 'dark' ? 'translate-x-9' : 'translate-x-1'
+        } flex items-center justify-center`}>
+          
+          {/* Sun Icon */}
+          <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${
             theme === 'light' 
               ? 'opacity-100 rotate-0 scale-100' 
               : 'opacity-0 rotate-180 scale-0'
-          }`}
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
-        </svg>
+          }`}>
+            <div className="relative">
+              {/* Sun rays */}
+              <div className="absolute inset-0">
+                {[0, 45, 90, 135, 180, 225, 270, 315].map((rotation, index) => (
+                  <div
+                    key={index}
+                    className="absolute w-0.5 h-1.5 bg-gradient-to-t from-orange-500 to-yellow-400 rounded-full"
+                    style={{
+                      top: '-2px',
+                      left: '50%',
+                      transform: `translateX(-50%) rotate(${rotation}deg)`,
+                      transformOrigin: 'center 8px',
+                    }}
+                  />
+                ))}
+              </div>
+              
+              {/* Sun center */}
+              <div className="w-3 h-3 rounded-full bg-gradient-to-br from-yellow-400 via-orange-400 to-red-500 shadow-sm">
+                <div className="w-full h-full rounded-full bg-gradient-to-tl from-yellow-200/60 to-transparent"></div>
+              </div>
+            </div>
+          </div>
 
-        {/* Moon Icon */}
-        <svg
-          className={`absolute inset-0 w-6 h-6 text-blue-200 transition-all duration-500 ${
+          {/* Moon Icon */}
+          <div className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${
             theme === 'dark' 
               ? 'opacity-100 rotate-0 scale-100' 
               : 'opacity-0 -rotate-180 scale-0'
-          }`}
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path fillRule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z" clipRule="evenodd" />
-        </svg>
+          }`}>
+            <div className="relative">
+              {/* Stars around moon */}
+              <div className="absolute inset-0">
+                <div className="absolute w-0.5 h-0.5 bg-cyan-300 rounded-full top-0 right-1 animate-pulse" style={{ animationDelay: '0s' }}></div>
+                <div className="absolute w-0.5 h-0.5 bg-blue-300 rounded-full top-2 right-0 animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute w-0.5 h-0.5 bg-indigo-300 rounded-full bottom-0 left-1 animate-pulse" style={{ animationDelay: '2s' }}></div>
+              </div>
+              
+              {/* Moon crescent */}
+              <div className="relative w-3 h-3">
+                <div className="w-3 h-3 rounded-full bg-gradient-to-br from-slate-200 via-blue-100 to-indigo-200"></div>
+                <div className="absolute top-0.5 right-0.5 w-2 h-2 rounded-full bg-gradient-to-bl from-slate-300/80 to-blue-200/60"></div>
+                {/* Moon surface details */}
+                <div className="absolute top-1 left-0.5 w-0.5 h-0.5 rounded-full bg-slate-400/40"></div>
+                <div className="absolute top-2 left-1 w-0.5 h-0.5 rounded-full bg-slate-400/30"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Background Icons in Track */}
+        <div className="absolute inset-0 flex items-center justify-between px-2">
+          {/* Sun background icon */}
+          <div className={`transition-opacity duration-300 ${theme === 'light' ? 'opacity-30' : 'opacity-60'}`}>
+            <div className="w-4 h-4 relative">
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((rotation, index) => (
+                <div
+                  key={index}
+                  className="absolute w-0.5 h-1 bg-white/70 rounded-full"
+                  style={{
+                    top: '6px',
+                    left: '50%',
+                    transform: `translateX(-50%) rotate(${rotation}deg)`,
+                    transformOrigin: 'center 2px',
+                  }}
+                />
+              ))}
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white/70 rounded-full"></div>
+            </div>
+          </div>
+          
+          {/* Moon background icon */}
+          <div className={`transition-opacity duration-300 ${theme === 'dark' ? 'opacity-30' : 'opacity-60'}`}>
+            <div className="relative w-4 h-4">
+              <div className="w-4 h-4 rounded-full bg-white/70"></div>
+              <div className="absolute top-0.5 right-1 w-2.5 h-2.5 rounded-full bg-gradient-to-bl from-blue-400/50 to-cyan-400/30"></div>
+              <div className="absolute top-1 right-2 w-0.5 h-0.5 bg-white/90 rounded-full"></div>
+              <div className="absolute top-0.5 right-0.5 w-0.5 h-0.5 bg-white/80 rounded-full"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Ripple effect on click */}
-      <div className="absolute inset-0 rounded-full bg-white/20 opacity-0 group-active:opacity-100 transition-opacity duration-150"></div>
+      {/* Outer glow effect */}
+      <div className={`absolute inset-0 rounded-full transition-all duration-500 opacity-0 group-hover:opacity-100 blur-xl ${
+        theme === 'dark' 
+          ? 'bg-gradient-to-r from-blue-500/20 to-cyan-500/20' 
+          : 'bg-gradient-to-r from-orange-400/20 to-pink-500/20'
+      }`}></div>
     </button>
   )
 }
