@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Hero from './components/sections/Hero'
 import About from './components/sections/About'
@@ -10,10 +12,13 @@ import Achievements from './components/sections/Achievements'
 import Contact from './components/sections/Contact'
 import Footer from './components/Footer'
 import ThemeToggle from './components/ThemeToggle'
+import Loader from './components/Loader'
 import { useScrollSpy } from './hooks/useScrollSpy'
 
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true)
+  
   const sections = [
     { id: 'hero', label: 'Who am I' },
     { id: 'about', label: 'My Story' },
@@ -25,8 +30,28 @@ export default function App() {
     { id: 'contact', label: 'Connect' },
   ]
   const { activeId, scrollTo } = useScrollSpy(sections.map(s => s.id))
+  
+  // Prevent body scroll while loading
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isLoading])
+  
   return (
-    <div className="min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 transition-colors duration-500">
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <Loader key="loader" onComplete={() => setIsLoading(false)} />
+        )}
+      </AnimatePresence>
+      
+      <div className="min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 transition-colors duration-500">
       <Navbar sections={sections} activeId={activeId} onNavigate={scrollTo} />
       
       <main>
@@ -44,5 +69,6 @@ export default function App() {
 
       <ThemeToggle />
     </div>
+    </>
   );
 }

@@ -1,4 +1,6 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import { useState, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
@@ -11,8 +13,10 @@ import Achievements from './components/sections/Achievements';
 import Contact from './components/sections/Contact';
 import Footer from './components/Footer';
 import ThemeToggle from './components/ThemeToggle';
+import Loader from './components/Loader';
 import { useScrollSpy } from './hooks/useScrollSpy';
 export default function App() {
+    const [isLoading, setIsLoading] = useState(true);
     const sections = [
         { id: 'hero', label: 'Who am I' },
         { id: 'about', label: 'My Story' },
@@ -24,5 +28,17 @@ export default function App() {
         { id: 'contact', label: 'Connect' },
     ];
     const { activeId, scrollTo } = useScrollSpy(sections.map(s => s.id));
-    return (_jsxs("div", { className: "min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 transition-colors duration-500", children: [_jsx(Navbar, { sections: sections, activeId: activeId, onNavigate: scrollTo }), _jsxs("main", { children: [_jsx(Hero, {}), _jsx(About, {}), _jsx(Skills, {}), _jsx(Projects, {}), _jsx(Experience, {}), _jsx(Certifications, {}), _jsx(Achievements, {}), _jsx(Contact, {}), _jsx(Footer, {})] }), _jsx(ThemeToggle, {})] }));
+    // Prevent body scroll while loading
+    useEffect(() => {
+        if (isLoading) {
+            document.body.style.overflow = 'hidden';
+        }
+        else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isLoading]);
+    return (_jsxs(_Fragment, { children: [_jsx(AnimatePresence, { mode: "wait", children: isLoading && (_jsx(Loader, { onComplete: () => setIsLoading(false) }, "loader")) }), _jsxs("div", { className: "min-h-screen bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 transition-colors duration-500", children: [_jsx(Navbar, { sections: sections, activeId: activeId, onNavigate: scrollTo }), _jsxs("main", { children: [_jsx(Hero, {}), _jsx(About, {}), _jsx(Skills, {}), _jsx(Projects, {}), _jsx(Experience, {}), _jsx(Certifications, {}), _jsx(Achievements, {}), _jsx(Contact, {}), _jsx(Footer, {})] }), _jsx(ThemeToggle, {})] })] }));
 }
