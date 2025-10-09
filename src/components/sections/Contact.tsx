@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Reveal from "../../components/Reveal";
 import MotionReveal from "../../components/MotionReveal";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useForm, ValidationError } from "@formspree/react";
 
-export default function Contact() {
+function Contact() {
+  const didResetRef = useRef(false);
   const [sending, setSending] = useState(false);
   const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
   const [errors, setErrors] = useState<{ name?: string; email?: string; phone?: string; message?: string }>({});
-
-  const API_URL = import.meta.env.VITE_API_URL;
+  // Formspree form handler (replace with your form ID if needed)
+  const [formState, formSubmit, formReset] = useForm("mdkonyyg");
 
   const validate = () => {
     const next: typeof errors = {};
@@ -23,85 +25,76 @@ export default function Contact() {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
+  // Sync sending state to Formspree submitting state
+  useEffect(() => {
+    setSending(formState.submitting);
+  }, [formState.submitting]);
 
-    setSending(true);
-    try {
-      const res = await fetch(`${API_URL}/connect`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      const data = await res.json();
-
-      if (res.ok) {
-        toast.success("Thanks for reaching out! I'll get back to you soon.", {
-          autoClose: 5000,
-          style: {
-            borderRadius: "0.5rem",
-            border: "1px solid #8b5cf6",
-            padding: "12px 16px",
-            fontSize: "14px",
-            color: "#4b5563",
-            background: "#fdf7ff",
-          },
-        });
-        setValues({ name: "", email: "", phone: "", message: "" });
-        setErrors({});
-      } else {
-        if (data.errors) {
-          const backendErrors = data.errors.reduce((acc: any, err: any) => {
-            acc[err.param] = err.msg;
-            return acc;
-          }, {});
-          setErrors(backendErrors);
-        } else {
-          toast.error(data.message || "Oops! Something went wrong.", {
-            autoClose: 5000,
-            style: {
-              borderRadius: "0.5rem",
-              border: "1px solid #ef4444",
-              padding: "12px 16px",
-              fontSize: "14px",
-              color: "#b91c1c",
-              background: "#fef2f2",
-            },
-          });
-        }
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("Oops! Something went wrong.", {
+  // Show success toast and reset form on success
+  useEffect(() => {
+    if (formState.succeeded && !didResetRef.current) {
+      toast.success("Thanks for reaching out! I'll get back to you soon.", {
         autoClose: 5000,
         style: {
           borderRadius: "0.5rem",
-          border: "1px solid #ef4444",
+          border: "1px solid #8b5cf6",
           padding: "12px 16px",
           fontSize: "14px",
-          color: "#b91c1c",
-          background: "#fef2f2",
+          color: "#4b5563",
+          background: "#fdf7ff",
         },
       });
-    } finally {
-      setSending(false);
+      setValues({ name: "", email: "", phone: "", message: "" });
+      setErrors({});
+      didResetRef.current = true;
+      setTimeout(() => {
+        formReset();
+        didResetRef.current = false;
+      }, 1200);
     }
+  }, [formState.succeeded, formReset]);
+
+  // Wrapper submit to validate first, then forward to Formspree
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!validate()) return;
+    // Submit using SubmissionData to avoid TS mismatch and include additional fields
+    await formSubmit({
+      email: values.email,
+      message: values.message,
+      // extra fields supported by Formspree
+      name: values.name,
+      phone: values.phone,
+    } as any);
   };
 
   return (
     <section id="contact" className="py-24 md:py-32">
       <ToastContainer position="top-right" hideProgressBar={false} />
       <div className="container max-w-3xl mx-auto px-6">
-        <Reveal as="h2" variant="slide-up" className="text-3xl md:text-4xl font-bold">
+        <Reveal as="h2" variant="slide-up" className="text-3xl md:text-4xl font-bold mb-6 text-center">
           Connect With Me
         </Reveal>
+
+        {/* Contact Info Block */}
+        <MotionReveal variant="fade" className="mb-8 flex justify-center">
+          <div className="flex gap-6">
+            <div className="bg-white dark:bg-neutral-900 shadow-lg rounded-xl px-6 py-4 flex items-center gap-3 border border-neutral-200 dark:border-neutral-700">
+              <span className="font-semibold text-neutral-700 dark:text-neutral-200">Email:</span>
+              <a href="mailto:ganeshrodge25@gmail.com" className="text-fuchsia-600 dark:text-violet-400 font-medium">ganeshrodge25@gmail.com</a>
+            </div>
+            <div className="bg-white dark:bg-neutral-900 shadow-lg rounded-xl px-6 py-4 flex items-center gap-3 border border-neutral-200 dark:border-neutral-700">
+              <span className="font-semibold text-neutral-700 dark:text-neutral-200">Phone:</span>
+              <a href="tel:+919665552822" className="text-fuchsia-600 dark:text-violet-400 font-medium">+91 9665552822</a>
+            </div>
+          </div>
+        </MotionReveal>
 
         <MotionReveal
           variant="up"
           className="mt-10 space-y-6"
         >
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleFormSubmit}>
             <div className="space-y-6">
               <MotionReveal variant="right">
                 <FloatingInput
@@ -120,6 +113,8 @@ export default function Contact() {
                   error={errors.email}
                   onChange={(e) => setValues((v) => ({ ...v, email: e.target.value }))}
                 />
+                {/* Server-side validation from Formspree (optional) */}
+                <ValidationError prefix="Email" field="email" errors={formState.errors} />
               </MotionReveal>
 
               <MotionReveal variant="right" delay={120}>
@@ -139,15 +134,17 @@ export default function Contact() {
                   error={errors.message}
                   onChange={(e) => setValues((v) => ({ ...v, message: e.target.value }))}
                 />
+                {/* Server-side validation from Formspree (optional) */}
+                <ValidationError prefix="Message" field="message" errors={formState.errors} />
               </MotionReveal>
 
               <MotionReveal variant="zoom" delay={240}>
                 <motion.button
                   whileTap={{ scale: 0.98 }}
-                  disabled={sending}
+                  disabled={sending || formState.submitting}
                   className="px-6 py-3 rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-60 cursor-pointer hover:from-fuchsia-400"
                 >
-                  {sending ? "Sending…" : "Send Message"}
+                  {sending || formState.submitting ? "Sending…" : "Send Message"}
                 </motion.button>
               </MotionReveal>
             </div>
@@ -158,7 +155,6 @@ export default function Contact() {
   );
 }
 
-/* --- Floating Input Component --- */
 function FloatingInput({
   label,
   type = "text",
@@ -195,7 +191,6 @@ function FloatingInput({
   );
 }
 
-/* --- Floating Textarea Component --- */
 function FloatingTextarea({
   label,
   value,
@@ -229,3 +224,5 @@ function FloatingTextarea({
     </div>
   );
 }
+
+export default Contact;
