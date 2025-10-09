@@ -72,20 +72,20 @@ function Contact() {
     <section id="contact" className="py-24 md:py-32">
       <ToastContainer position="top-right" hideProgressBar={false} />
       <div className="container max-w-3xl mx-auto px-6">
-        <Reveal as="h2" variant="slide-up" className="text-3xl md:text-4xl font-bold mb-6 text-center">
+        <Reveal as="h2" variant="slide-up" className="text-3xl md:text-4xl font-bold mb-8 text-center">
           Connect With Me
         </Reveal>
 
         {/* Contact Info Block */}
-        <MotionReveal variant="fade" className="mb-8 flex justify-center">
-          <div className="flex gap-6">
-            <div className="bg-white dark:bg-neutral-900 shadow-lg rounded-xl px-6 py-4 flex items-center gap-3 border border-neutral-200 dark:border-neutral-700">
+        <MotionReveal variant="fade" className="mb-10">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+            <div className="bg-white dark:bg-neutral-900 shadow-lg rounded-xl px-6 py-4 flex items-center gap-3 border border-neutral-200 dark:border-neutral-700 w-full">
               <span className="font-semibold text-neutral-700 dark:text-neutral-200">Email:</span>
-              <a href="mailto:ganeshrodge25@gmail.com" className="text-fuchsia-600 dark:text-violet-400 font-medium">ganeshrodge25@gmail.com</a>
+              <a href="mailto:ganeshrodge25@gmail.com" className="text-fuchsia-600 dark:text-violet-400 font-medium break-words">ganeshrodge25@gmail.com</a>
             </div>
-            <div className="bg-white dark:bg-neutral-900 shadow-lg rounded-xl px-6 py-4 flex items-center gap-3 border border-neutral-200 dark:border-neutral-700">
+            <div className="bg-white dark:bg-neutral-900 shadow-lg rounded-xl px-6 py-4 flex items-center gap-3 border border-neutral-200 dark:border-neutral-700 w-full">
               <span className="font-semibold text-neutral-700 dark:text-neutral-200">Phone:</span>
-              <a href="tel:+919665552822" className="text-fuchsia-600 dark:text-violet-400 font-medium">+91 9665552822</a>
+              <a href="tel:+919665552822" className="text-fuchsia-600 dark:text-violet-400 font-medium break-words">+91 9665552822</a>
             </div>
           </div>
         </MotionReveal>
