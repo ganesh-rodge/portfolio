@@ -2,6 +2,9 @@ import Reveal from '../../components/Reveal'
 import MotionReveal from '../../components/MotionReveal'
 
 const certs = [
+  { title: 'Postman API Fundamentals Student Expert', issuer: 'Postman', date: 'January 2026' },
+  { title: 'Oracle Certified DevOps Professional', issuer: 'Oracle University', date: 'October 2025' },
+  { title: 'Oracle Certified Developer Professional', issuer: 'Oracle University', date: 'October 2025' },
   { title: ' TypeScript Programming Course for Beginners', issuer: 'ScholarHat', date: ' June 2025' },
   { title: 'Operating System Fundamentals', issuer: 'NPTEL', date: 'October 2024' },
   { title: ' JavaScript for Beginners', issuer: 'Udemy', date: ' October 2024' },

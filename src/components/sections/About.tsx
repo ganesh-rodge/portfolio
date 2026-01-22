@@ -28,7 +28,11 @@ export default function About() {
           </ul>
         </div>
 
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Reveal as="h3" variant="slide-up" className="mt-16 text-2xl md:text-3xl font-bold text-neutral-900 dark:text-neutral-100">
+          I Usually
+        </Reveal>
+
+        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
   'Workout in Gym',
   'Watch movies',

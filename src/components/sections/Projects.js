@@ -3,24 +3,23 @@ import { useInView } from '../../hooks/useInView';
 import Reveal from '../../components/Reveal';
 import MotionReveal from '../../components/MotionReveal';
 import ParallaxSection from '../../components/ParallaxSection';
-import { FaNodeJs } from 'react-icons/fa';
 const projects = [
     {
+        title: 'Sahayak AI',
+        desc: 'AI-powered adaptive learning and teaching assistant platform with personalized learning paths, AI-generated educational content, and intelligent tutoring capabilities.',
+        stack: ['React.js', 'Node.js', 'Express.js', 'Azure SQL', 'Azure App Service', 'Azure Static Web Apps', 'Blob Storage', 'Microsoft Entra ID', 'TailwindCSS', 'Gemini APIs', 'AI/ML'],
+        demo: 'https://www.sahayakai.dev'
+    },
+    {
         title: 'Unique Fitness',
-        desc: 'Your Personal Fitness Companion.',
-        stack: ['Node.js', 'Express.js', 'React.js', 'JavaScript', 'MongoDB', 'TailwindCSS', 'REST APIs', 'JWT'],
+        desc: 'Full-stack MERN gym management platform with admin dashboard for memberships, plans, workouts, diets, and announcements. Successfully onboarded 200+ active users.',
+        stack: ['React.js', 'Node.js', 'MongoDB', 'Express.js', 'TailwindCSS', 'Cloudinary', 'JWT', 'REST APIs'],
         github: 'https://github.com/ganesh-rodge/uniquefitness',
         demo: 'https://uniquefitness.vercel.app'
     },
     {
-        title: 'VidTube API',
-        desc: 'Video Sharing & Microblogging APIs.',
-        stack: ['Node.js', 'Express.js', 'JWT', 'Cloudinary', 'JavaScript', 'REST APIs', 'MongoDB'],
-        github: 'https://github.com/ganesh-rodge/vidtube'
-    },
-    {
         title: 'CropNest',
-        desc: 'Smart Agri-Marketplace Platform Front-end',
+        desc: 'Smart Agri-Marketplace Platform featuring farm overview dashboard, harvest schedule management, comprehensive farming details tracking, crop health monitoring, and soil quality analysis tools.',
         stack: ['React.js', 'TypeScript', 'React-Router', 'TailwindCSS', 'CSS', 'HTML'],
         github: 'https://github.com/ganesh-rodge/agriconnect'
     },
@@ -34,9 +33,9 @@ function ProjectCard({ project, index }) {
     // Determine preview content
     let previewContent;
     if (index === 0)
-        previewContent = _jsx("img", { src: "/unique.png", alt: "Unique Fitness", className: "w-full h-full object-cover" });
+        previewContent = _jsx("img", { src: "/sahayak.png", alt: "Sahayak AI", className: "w-full h-full object-cover" });
     else if (index === 1)
-        previewContent = (_jsxs("div", { className: "flex items-center justify-center gap-2 bg-green-50 dark:bg-green-900/40 rounded-xl px-3 py-2", children: [_jsx(FaNodeJs, { className: "w-6 h-6 text-green-600 dark:text-green-400" }), _jsx("span", { className: "text-lg font-medium text-green-800 dark:text-green-200", children: "REST APIs" })] }));
+        previewContent = _jsx("img", { src: "/unique.png", alt: "Unique Fitness", className: "w-full h-full object-cover" });
     else if (index === 2)
         previewContent = _jsx("img", { src: "/cropnest.png", alt: "CropNest", className: "w-full h-full object-cover" });
     return (_jsxs("article", { ref: ref, className: (inView ? 'opacity-100 translate-x-0' : `opacity-0 ${dir}`) +

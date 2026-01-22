@@ -1,8 +1,8 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import Reveal from '../../components/Reveal';
 import MotionReveal from '../../components/MotionReveal';
-import { SiNodedotjs, SiPython, } from 'react-icons/si';
-import { PiChatsBold, PiCompassToolBold } from 'react-icons/pi';
+import { SiNodedotjs, SiPython } from 'react-icons/si';
+import { PiChatsBold, PiCompassToolBold, PiDatabaseBold, PiCloudBold } from 'react-icons/pi';
 export default function Skills() {
     const groups = [
         {
@@ -13,13 +13,22 @@ export default function Skills() {
         {
             title: 'Full‑stack',
             icon: _jsx(SiNodedotjs, { className: "text-green-500" }),
-            items: ['React', 'Node.js', 'Express.js', 'TailwindCSS', 'HTML', 'CSS', 'MongoDB', 'JWT', 'CI/CD', 'REST APIs'],
-            // items: ['Postman', 'Git', 'GitHub', 'Figma', 'MySQL', 'Cloudinary', 'UNIX', 'JIRA'],
+            items: ['React.js', 'Node.js', 'Express.js', 'TailwindCSS', 'HTML', 'CSS', 'REST APIs', 'JWT Authentication', 'CI/CD'],
+        },
+        {
+            title: 'Databases',
+            icon: _jsx(PiDatabaseBold, { className: "text-orange-500" }),
+            items: ['MongoDB', 'Azure SQL', 'MySQL'],
+        },
+        {
+            title: 'Cloud & APIs',
+            icon: _jsx(PiCloudBold, { className: "text-blue-500" }),
+            items: ['Azure App Service', 'Azure Static Web Apps', 'Azure Blob Storage', 'Azure Communication Services', 'Microsoft Entra External ID', 'Gemini API'],
         },
         {
             title: 'Tools',
             icon: _jsx(PiCompassToolBold, { className: "text-fuchsia-500" }),
-            items: ['Postman', 'Git', 'GitHub', 'Figma', 'MySQL', 'Cloudinary', 'UNIX', 'JIRA'],
+            items: ['Git', 'GitHub', 'GitHub Actions', 'Postman', 'Figma', 'Jira', 'UNIX', 'Cloudinary'],
         },
         {
             title: 'Soft skills',
