@@ -2,9 +2,9 @@ import Reveal from '../../components/Reveal'
 import MotionReveal from '../../components/MotionReveal'
 
 const badges = [
-  { title: '111 LeetCode questions solved', sub: '' },
-  { title: '37+ Github Repositories', sub: '' },
-  { title: 'Participated in Hackathons', sub: '' },
+  { title: 'Smart India Hackathon 2025 winner', sub: '' },
+  { title: '121 LeetCode questions solved', sub: '' },
+  { title: '42+ Github Repositories', sub: '' },
 ]
 
 export default function Achievements() {

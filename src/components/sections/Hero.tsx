@@ -82,29 +82,44 @@ function ProfileImage() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.15])
 
   return (
-    <motion.div
-      style={{ rotate, scale }}
-      animate={{ y: [0, -10, 0] }}
-      transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-      className="relative mx-auto w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden shadow-lg"
-    >
-      {/* Proper Radial Gradient Halo */}
+    <>
       <motion.div
-        className="absolute inset-0 rounded-full"
-        style={{
-          background: 'radial-gradient(circle at center, rgba(168,85,247,0.4), rgba(236,72,153,0.1))',
-        }}
-        animate={{ scale: [1, 1.1, 1], rotate: [0, 20, 0], opacity: [0.7, 1, 0.7] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-      />
+        style={{ rotate, scale }}
+        animate={{ y: [0, -10, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        className="relative mx-auto w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden shadow-lg"
+      >
+        {/* Proper Radial Gradient Halo */}
+        <motion.div
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: 'radial-gradient(circle at center, rgba(168,85,247,0.4), rgba(236,72,153,0.1))',
+          }}
+          animate={{ scale: [1, 1.1, 1], rotate: [0, 20, 0], opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        />
 
-      {/* Profile Image */}
-      <img
-        src="/ganesh.png"
-        alt="Ganesh Rodge"
-        className="relative w-full h-full object-cover rounded-full border-4 border-white dark:border-neutral-900"
-      />
-    </motion.div>
+        {/* Profile Image */}
+        <img
+          src="/ganesh.png"
+          alt="Ganesh Rodge"
+          className="relative w-full h-full object-cover rounded-full border-4 border-white dark:border-neutral-900"
+        />
+      </motion.div>
+
+      <MotionReveal
+        variant="zoom"
+        delay={300}
+        className="mt-6 mx-auto w-max z-10 relative"
+      >
+        <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 rounded-full shadow-lg border border-neutral-100 dark:border-neutral-700">
+          <span className="text-xl">🏆</span>
+          <span className="font-bold text-sm bg-gradient-to-r from-orange-500 via-red-500 to-purple-600 bg-clip-text text-transparent">
+            SIH 2025 Winner
+          </span>
+        </div>
+      </MotionReveal>
+    </>
   )
 }
 
